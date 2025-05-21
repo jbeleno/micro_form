@@ -25,3 +25,9 @@ class ParticipanteFormulario(Base):
     cargo = Column(String(100))
     nombre = Column(String(255))
     firma = Column(Text)
+
+class Metodologia(Base):
+    __tablename__ = "metodologias"
+    id_metodologia = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String(100), nullable=False)
+    descripcion = Column(Text)

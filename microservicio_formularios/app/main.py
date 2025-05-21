@@ -120,3 +120,33 @@ def delete_participante(participante_id: int, db: Session = Depends(get_db)):
     if db_participante is None:
         raise HTTPException(status_code=404, detail="Participante no encontrado")
     return db_participante
+
+# CRUD Metodologías
+@app.post("/metodologias/", response_model=schemas.Metodologia, tags=["metodologias"])
+def create_metodologia(metodologia: schemas.MetodologiaCreate, db: Session = Depends(get_db)):
+    return crud.create_metodologia(db, metodologia)
+
+@app.get("/metodologias/", response_model=list[schemas.Metodologia], tags=["metodologias"])
+def read_metodologias(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return crud.get_metodologias(db, skip=skip, limit=limit)
+
+@app.get("/metodologias/{metodologia_id}", response_model=schemas.Metodologia, tags=["metodologias"])
+def read_metodologia(metodologia_id: int, db: Session = Depends(get_db)):
+    db_metodologia = crud.get_metodologia(db, metodologia_id=metodologia_id)
+    if db_metodologia is None:
+        raise HTTPException(status_code=404, detail="Metodología no encontrada")
+    return db_metodologia
+
+@app.put("/metodologias/{metodologia_id}", response_model=schemas.Metodologia, tags=["metodologias"])
+def update_metodologia(metodologia_id: int, metodologia: schemas.MetodologiaCreate, db: Session = Depends(get_db)):
+    db_metodologia = crud.update_metodologia(db, metodologia_id, metodologia)
+    if db_metodologia is None:
+        raise HTTPException(status_code=404, detail="Metodología no encontrada")
+    return db_metodologia
+
+@app.delete("/metodologias/{metodologia_id}", response_model=schemas.Metodologia, tags=["metodologias"])
+def delete_metodologia(metodologia_id: int, db: Session = Depends(get_db)):
+    db_metodologia = crud.delete_metodologia(db, metodologia_id)
+    if db_metodologia is None:
+        raise HTTPException(status_code=404, detail="Metodología no encontrada")
+    return db_metodologia

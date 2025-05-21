@@ -41,3 +41,15 @@ class ParticipanteFormulario(ParticipanteFormularioBase):
     id_participante: int
     class Config:
         orm_mode = True
+
+class MetodologiaBase(BaseModel):
+    nombre: str
+    descripcion: str | None = None
+
+class MetodologiaCreate(MetodologiaBase):
+    pass
+
+class Metodologia(MetodologiaBase):
+    id_metodologia: int
+    class Config:
+        orm_mode = True

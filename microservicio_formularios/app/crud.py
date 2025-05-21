@@ -91,3 +91,34 @@ def delete_participante(db: Session, participante_id: int):
         db.delete(participante)
         db.commit()
     return participante
+
+# Metodologias
+
+def get_metodologias(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Metodologia).offset(skip).limit(limit).all()
+
+def get_metodologia(db: Session, metodologia_id: int):
+    return db.query(models.Metodologia).filter(models.Metodologia.id_metodologia == metodologia_id).first()
+
+def create_metodologia(db: Session, metodologia: schemas.MetodologiaCreate):
+    db_metodologia = models.Metodologia(**metodologia.dict())
+    db.add(db_metodologia)
+    db.commit()
+    db.refresh(db_metodologia)
+    return db_metodologia
+
+def update_metodologia(db: Session, metodologia_id: int, metodologia_update: schemas.MetodologiaCreate):
+    metodologia = db.query(models.Metodologia).filter(models.Metodologia.id_metodologia == metodologia_id).first()
+    if metodologia:
+        for key, value in metodologia_update.dict().items():
+            setattr(metodologia, key, value)
+        db.commit()
+        db.refresh(metodologia)
+    return metodologia
+
+def delete_metodologia(db: Session, metodologia_id: int):
+    metodologia = db.query(models.Metodologia).filter(models.Metodologia.id_metodologia == metodologia_id).first()
+    if metodologia:
+        db.delete(metodologia)
+        db.commit()
+    return metodologia
