@@ -10,6 +10,8 @@ class Formulario(Base):
     fecha = Column(Date, nullable=False)
     ciudad = Column(String(100))
     nombre_software = Column(String(100))
+    id_usuario = Column(Integer, nullable=False)
+    id_metodologia = Column(Integer, nullable=False)
 
 class ObjetivoFormulario(Base):
     __tablename__ = "objetivos_formulario"

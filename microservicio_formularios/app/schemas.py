@@ -6,6 +6,8 @@ class FormularioBase(BaseModel):
     fecha: date
     ciudad: str | None = None
     nombre_software: str | None = None
+    id_usuario: int
+    id_metodologia: int
 
 class FormularioCreate(FormularioBase):
     pass
