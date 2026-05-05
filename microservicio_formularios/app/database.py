@@ -1,7 +1,16 @@
+"""Database configuration for the forms microservice.
+
+Reads DATABASE_URL from the environment.
+"""
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "postgresql://neondb_owner:npg_MgJbFn8Td6aV@ep-fragrant-dew-a2k96saa-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require"
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql://user:password@localhost:5432/forms_db?sslmode=disable",
+)
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
